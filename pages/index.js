@@ -1,8 +1,57 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import axios from 'axios';
+
+import { useState, useEffect } from 'react';
+import { authenticateToken } from '../middleware/tokenAuthenticate';
 
 export default function Home() {
+
+  useEffect(() => {
+
+    const getCurrentUser = () => {
+      axios.get('/api/user/current')
+        .then((response) => { 
+          const {data: {user}} = response;
+  
+          if (user._id) { //user is logged in
+            
+            localStorage.setItem('token', user.accessToken);
+            console.log('login successful')
+  
+          } else { //user is not logged in
+            console.log('user not logged in')
+            checkToken();
+          }
+        })
+        .catch(err => {
+          console.error(err)
+        })
+    }
+
+    const checkToken = () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          axios.get('/api/user/token', {
+            headers: {
+              'Authorization': "Bearer " + token
+            }
+          })
+            .then(response => {
+              console.log(response)
+            })
+        } catch (err) {
+          console.log('invalid token')
+        }
+      }
+    }
+
+    getCurrentUser();
+    
+  }, [])
+
   return (
     <div className={styles.container}>
       <Head>
@@ -11,59 +60,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      <form action="/api/user/login" method="post">
+        <input type="email" name="email" autoComplete="on" placeholder="Email"/>
+        <input type="password" name="password" autoComplete="on" placeholder="Password" />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }

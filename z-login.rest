@@ -5,8 +5,8 @@ POST http://localhost:3000/api/user HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "email@gmail.com",
-    "name": "JBlack262 2.0",
+    "email": "email2@gmail.com",
+    "name": "JBlack262",
     "password": "password"
 }
 ###
@@ -14,23 +14,28 @@ POST http://localhost:3000/api/user/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "email@gmail.com",
+    "email": "email2@gmail.com",
     "password": "password"
 }
 ###
 DELETE http://localhost:3000/api/user HTTP/1.1
 Content-Type: application/json
 ###
-GET http://localhost:3000/api/user/628491af07948fb7fa0e3bf1 HTTP/1.1
+GET http://localhost:3000/api/user/6286aff5756b45604cecaa34 HTTP/1.1
 Content-Type: application/json
 ###
-PATCH http://localhost:3000/api/user/6284926f07948fb7fa0e3bf5 HTTP/1.1
+PATCH http://localhost:3000/api/user/6286aff5756b45604cecaa34 HTTP/1.1
 Content-Type: application/json
 
 {
     "name": "JBlack262(whoa)"
 }
 ###
-DELETE http://localhost:3000/api/user/6284926f07948fb7fa0e3bf5 HTTP/1.1
+DELETE http://localhost:3000/api/user/6286aff5756b45604cecaa34 HTTP/1.1
 Content-Type: application/json
 ###
+GET http://localhost:3000/api/user/current HTTP/1.1
+Content-Type: application/json
+###
+GET http://localhost:3000/api/user/token HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTMwOTk2OTMsImV4cCI6MTY1MzEwMDI5M30.htppP-GtshIen0MH13wgJlIYTE4mk6ELtOB3xCclCc4

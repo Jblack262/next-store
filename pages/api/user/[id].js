@@ -6,7 +6,7 @@ console.log(UserSchema)
 export default async function handler(req, res) {
     const { method } = req
   
-    await dbConnect()
+    await dbConnect(process.env.MONGODB_URI)
   
     switch (method) {
     case 'GET':
