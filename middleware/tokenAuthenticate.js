@@ -7,8 +7,10 @@ const authenticateToken = (req, res, next) => {
   //Bearer TOKEN
   if (token == null) return res.sendStatus(401)//No token - no authHeader
   //now verify token is valid
+  console.log(token)
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-    if (err) return res.sendStatus(403) //invalid token no access token
+    if (err) return res.status(200).json({msg: "invalid token"}) //invalid token no access token
+    // console.log(user)
     req.user = user;
     next();
   })

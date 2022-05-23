@@ -38,4 +38,11 @@ GET http://localhost:3000/api/user/current HTTP/1.1
 Content-Type: application/json
 ###
 GET http://localhost:3000/api/user/token HTTP/1.1
-authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NTMwOTk2OTMsImV4cCI6MTY1MzEwMDI5M30.htppP-GtshIen0MH13wgJlIYTE4mk6ELtOB3xCclCc4
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsMkBnbWFpbC5jb20iLCJuYW1lIjoiSkJsYWNrMjYyIiwiX2lkIjoiNjI4NmI3M2E3NTZiNDU2MDRjZWNhYTQ3IiwiaWF0IjoxNjUzMTU4MjEwLCJleHAiOjE2NTMxNjAwMTB9.HhIsSG7-awVoZqYmDFpYDnZ6zjbwZAmhdwL2J_H23-0
+###
+POST http://localhost:3000/api/user/token HTTP/1.1
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsMkBnbWFpbC5jb20iLCJuYW1lIjoiSkJsYWNrMjYyIiwiX2lkIjoiNjI4NmI3M2E3NTZiNDU2MDRjZWNhYTQ3IiwiaWF0IjoxNjUzMzQwNzMwfQ.wk9Ez-cuoJ93H8x6H7Lr1HdqJ6ixCflCLBvrahvLpDw"
+}
